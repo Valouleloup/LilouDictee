@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Dictée</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&family=Roboto+Mono&family=Source+Code+Pro&family=Style+Script&display=swap" rel="stylesheet">
+    <style>
+        
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            font-family: Calibri, sans-serif;
+            border:5px solid #333;
+        }
+
+        td, th {
+            border: 1px solid #eee;
+            text-align: left;
+            padding: 0px 6px;
+            font-family: Calibri, sans-serif;
+        }
+
+        th {
+            padding:6px;
+        }
+
+        th input {
+            font-family: Calibri, sans-serif;
+            font-weight: 600;
+        }
+
+        .circle {
+            font-size:45px;
+        }
+
+        input{
+            border:0px;
+            display:inline;
+            min-width: 0px;
+            font-size:18px;
+        }
+
+        .cursive {
+            font-family: "Style Script", cursive;
+        }
+    </style>
+</head>
+<body>
+    <div class="cadre">
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>
+                        <input type="text" value="Lala" onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';"></input>
+                    </th>
+                    <th>
+                        <input type="text" value="Lulu" onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';"></input>
+                    </th>
+                    <th>
+                        <input type="text" value="Lili" onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';"></input>
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                <tr>
+                    <td>
+                        <input type="text" value="Bonjour" onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';"></input>
+                        <input type="text" value="Cursive" class="cursive" onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';"></input>
+                    </td>
+                    <td>
+                        <span class="circle">&#9675;</span>
+                    </td>
+                    <td>
+                        <span class="circle">&#9675;</span>
+                    </td>
+                    <td>
+                        <span class="circle">&#9675;</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span id="plus" class="circle" onclick="refresh(this)">+</span>
+                    </td>
+                    <td>
+                        <span class="circle">&#9675;</span>
+                    </td>
+                    <td>
+                        <span class="circle">&#9675;</span>
+                    </td>
+                    <td>
+                        <span class="circle" onclick="remove(this)">&#9675;</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        var plusDiv = document.getElementById('plus');
+
+        function remove(target) {
+            var element = null;
+            if(target.parentElement == null) {
+                element = target.target.parentElement.parentElement;
+            } else {
+                element = target.parentElement.parentElement;
+            }
+            
+            element.remove();
+        }
+
+        function refresh(target) {
+            var tableBodyDiv = document.getElementById('tbody');
+
+            var element = target.parentElement;
+            if(element == null) {
+                element = target.target.parentElement;
+            }
+            element.innerHTML = '<input type="text" value="Bonjour" onkeypress="this.style.width = ((this.value.length + 1) * 8)-10 + \'px\';"></input><input type="text" value="Cursive" class="cursive" onkeypress="this.style.width = ((this.value.length + 1) * 8) + \'px\';"></input>';
+
+            var newPLusDiv = document.createElement('tr');
+            var newText = document.createElement('td');
+            var newSpanText = document.createElement('span');
+            newSpanText.classList.add('circle');
+            newSpanText.id = 'plus';
+            newSpanText.innerText = '+';
+            newSpanText.onclick = refresh;
+            var newCircleOne = document.createElement('td');
+            var newSpanCircleOne = document.createElement('span');
+            newSpanCircleOne.classList.add('circle');
+            newSpanCircleOne.innerHTML = '&#9675;';
+            var newCircleTwo = document.createElement('td');
+            var newSpanCircleTwo = document.createElement('span');
+            newSpanCircleTwo.classList.add('circle');
+            newSpanCircleTwo.innerHTML = '&#9675;';
+            var newCircleThree = document.createElement('td');
+            var newSpanCircleThree = document.createElement('span');
+            newSpanCircleThree.classList.add('circle');
+            newSpanCircleThree.innerHTML = '&#9675;';
+            newSpanCircleThree.onclick = remove;
+
+            newText.appendChild(newSpanText);
+            newCircleOne.appendChild(newSpanCircleOne);
+            newCircleTwo.appendChild(newSpanCircleTwo);
+            newCircleThree.appendChild(newSpanCircleThree);
+
+            newPLusDiv.appendChild(newText);
+            newPLusDiv.appendChild(newCircleOne);
+            newPLusDiv.appendChild(newCircleTwo);
+            newPLusDiv.appendChild(newCircleThree);
+
+            tableBodyDiv.appendChild(newPLusDiv);
+        }
+    </script>
+</body>
+</html>
